@@ -9,7 +9,7 @@ using Windows.Data.Json;
 
 namespace HackFall12
 {
-    class WebRequester
+    public class WebRequester
     {
         public Action<string> UpdateStatus;
         private HttpClient client;
