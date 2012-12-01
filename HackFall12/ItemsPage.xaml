@@ -17,7 +17,7 @@
         <CollectionViewSource
             x:Name="itemsViewSource"
             Source="{Binding Items}"
-            d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding AllGroups, Source={d:DesignInstance Type=data:MovieDataSourceTest, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
     <!--
