@@ -53,8 +53,18 @@ namespace HackFall12
         //Creates a movie object from a JSON object
         private MovieDataItem parseMovieFromJSON(string body)
         {
-            JsonObject jsonObject = JsonObject.Parse(body);
-            return new MovieDataItem("","","","","","");
+            try
+            {
+                JsonObject jsonObject = JsonObject.Parse(body);
+                string Title = jsonObject["title"].GetObject()["regular"].GetString();
+
+                return new MovieDataItem("", Title,"","","","");
+            }
+            catch (Exception)
+            {
+                updateStatus("JSON Parse failed...");
+                return null;
+            }
         }
 
         //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
@@ -65,15 +75,17 @@ namespace HackFall12
             {
                 string responseBody;
 
+                updateStatus("Requesting movie...");
                 HttpResponseMessage response = await client.GetAsync(requestURL);
                 response.EnsureSuccessStatusCode();
+                updateStatus("Parsing Retrieved Data...");
                 responseBody = await response.Content.ReadAsStringAsync();
                 responseBody = responseBody.Replace("<br>", Environment.NewLine);
                 _movie = parseMovieFromJSON(responseBody);
             }
             catch (Exception)
             {
-                
+                updateStatus("Movie Request Failed");
                 throw;
             }
         }
