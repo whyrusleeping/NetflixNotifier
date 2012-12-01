@@ -31,7 +31,7 @@ namespace HackFall12
             this.InitializeComponent();
         }
 
-        private MovieDataItem selectedItem;
+        private MovieDataItem pageItem;
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -44,12 +44,14 @@ namespace HackFall12
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var item = MovieDataSourceTest.GetItem((String)navigationParameter);
-            this.selectedItem = item;
+            this.pageItem = item;
+            this.pageTitle.Text = pageItem.Title;
+            this.itemImage.Source = pageItem.Image;
+            //this.itemImage.
 
             if (pageState == null)
             {
 
-                this.flipView.SelectedItem = null;
                 // When this is a new page, select the first item automatically unless logical page
                 // navigation is being used (see the logical page navigation #region below.)
                 if (!this.UsingLogicalPageNavigation() && this.itemsViewSource.View != null)
@@ -134,20 +136,7 @@ namespace HackFall12
         /// <param name="e">Event data that describes how the back button was clicked.</param>
         protected override void GoBack(object sender, RoutedEventArgs e)
         {
-            if (this.UsingLogicalPageNavigation() && flipView.SelectedItem != null)
-            {
-                // When logical page navigation is in effect and there's a selected item that
-                // item's details are currently displayed.  Clearing the selection will return
-                // to the item list.  From the user's point of view this is a logical backward
-                // navigation.
-                this.flipView.SelectedItem = null;
-            }
-            else
-            {
-                // When logical page navigation is not in effect, or when there is no selected
-                // item, use the default back button behavior.
-                base.GoBack(sender, e);
-            }
+            base.GoBack(sender, e);
         }
 
         /// <summary>
@@ -161,7 +150,7 @@ namespace HackFall12
         protected override string DetermineVisualState(ApplicationViewState viewState)
         {
             // Update the back button's enabled state when the view state changes
-            var logicalPageBack = this.UsingLogicalPageNavigation(viewState) && this.flipView.SelectedItem != null;
+            var logicalPageBack = this.UsingLogicalPageNavigation(viewState);
             var physicalPageBack = this.Frame != null && this.Frame.CanGoBack;
             this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
 
