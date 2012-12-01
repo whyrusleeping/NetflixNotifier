@@ -14,6 +14,8 @@ namespace HackFall12
         public Action<string> UpdateStatus;
         private HttpClient client;
         private MovieDataItem _movie;
+        private const string server = "125.125.125.125";
+        private const string query = "/avaliable/";
 
         //One time only getter for the retreived movie
         public MovieDataItem Movie
@@ -47,7 +49,8 @@ namespace HackFall12
         //Creates a request url from a given movie name
         private string makeRequestURL(string movieName)
         {
-            return "";
+            var cleanName = new string(movieName.ToCharArray().Where(c => !char.IsPunctuation(c) && !char.IsWhiteSpace(c)).ToArray());
+            return server + query + cleanName;
         }
 
         //Creates a movie object from a JSON object
@@ -57,10 +60,22 @@ namespace HackFall12
             {
                 JsonObject jsonObject = JsonObject.Parse(body);
                 string Title = jsonObject["title"].GetObject()["regular"].GetString();
+                string ID = jsonObject["id"].Stringify();
+                string link = jsonObject["link"].GetArray()[0].GetObject()["href"].GetString();
+                string rating = jsonObject["average_rating"].GetString();
+                string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
+                string synopsis = "";
 
-                return new MovieDataItem("", Title,"","","","");
+                List<string> actors = new List<string>();
+                foreach (var actorPair in jsonObject["cast"].GetArray())
+                {
+                    actors.Add(actorPair.GetObject()["name"].GetString());
+                }
+
+
+                return new MovieDataItem(ID, link, Title,rating, imageURL, synopsis, actors);
             }
-            catch (Exception)
+            catch (Exception) 
             {
                 updateStatus("JSON Parse failed...");
                 return null;
