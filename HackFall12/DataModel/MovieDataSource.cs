@@ -30,13 +30,27 @@ namespace HackFall12.Data
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
 
-        public MovieDataCommon(String uniqueId, String title, String subtitle, String imagePath, String description)
+        public MovieDataCommon(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors)
         {
+            this._url = url;
             this._uniqueId = uniqueId;
             this._title = title;
-            this._subtitle = subtitle;
+            this._rating= rating;
             this._description = description;
             this._imagePath = imagePath;
+            this._actors = actors;
+        }
+        private string _url = string.Empty;
+        public string URL
+        {
+            get { return this._url; }
+            set { this.SetProperty(ref this._url, value); }
+        }
+        private List<string> _actors = new List<string>();
+        public List<string> Actors
+        {
+            get { return this._actors; }
+            set { this.SetProperty(ref this._actors, value); }
         }
 
         private string _uniqueId = string.Empty;
@@ -53,11 +67,11 @@ namespace HackFall12.Data
             set { this.SetProperty(ref this._title, value); }
         }
 
-        private string _subtitle = string.Empty;
-        public string Subtitle
+        private string _rating = string.Empty;
+        public string Rating
         {
-            get { return this._subtitle; }
-            set { this.SetProperty(ref this._subtitle, value); }
+            get { return this._rating; }
+            set { this.SetProperty(ref this._rating, value); }
         }
 
         private string _description = string.Empty;
@@ -210,13 +224,13 @@ namespace HackFall12.Data
             this.AllItems.Add(new MovieDataItem("Item-1",
                     "Item Title: 1",
                     "Item Subtitle: 1",
-                    "Assets/LightGray.png",
+                    "Assets/60004480.jpg",
                     "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
                     ITEM_CONTENT));
             this.AllItems.Add(new MovieDataItem("Item-2",
                     "Item Title: 2",
                     "Item Subtitle: 2",
-                    "Assets/LightGray.png",
+                    "Assets/60004480.jpg",
                     "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
                     ITEM_CONTENT));
         }

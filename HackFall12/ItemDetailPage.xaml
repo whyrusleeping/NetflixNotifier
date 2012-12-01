@@ -40,14 +40,23 @@
             <TextBlock x:Name="pageTitle" Text="{Binding Item.Title}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false"/>
         </Grid>
         <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="379*"/>
+                <RowDefinition Height="239*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="787*"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="377*"/>
+                <ColumnDefinition Width="150*"/>
             </Grid.ColumnDefinitions>
-
-            <Image x:Name="itemImage" HorizontalAlignment="Left" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" Width="300" VerticalAlignment="Top"/>
-            <TextBlock x:Name="itemDescription" Text="No Data Found" HorizontalAlignment="Left" Grid.Column="1" Width="775"/>
+            <Image x:Name="itemImage" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
+            
+            <ScrollViewer Grid.Column="1" Grid.Row="2">
+                    <TextBlock x:Name="itemInfo" HorizontalAlignment="Left" Text="No Data Found"/>
+            </ScrollViewer>
+            <TextBlock x:Name="itemDescription" Text="No Data Found" Grid.Column="2" Grid.RowSpan="3" Margin="10,0"/>
         </Grid>
 
 
