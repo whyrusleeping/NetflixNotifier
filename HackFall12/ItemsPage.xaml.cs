@@ -64,12 +64,27 @@ namespace HackFall12
             //TODO go to that URL
         }
 
-        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void Search_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter)// V.Return)
+            if (e.Key == VirtualKey.Enter)
             {
-                //Key hit
+                string text = SearchBox.Text;
+                searchResultDetail.Text = text;
+                searchResultTitle.Text = text;
+                SearchBox.Text = "";
             }
+        }
+
+        private void Search_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (SearchBox.Text == "Search Here")
+                SearchBox.Text = "";
+        }
+
+        private void Search_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (SearchBox.Text == "")
+                SearchBox.Text = "Search Here";
         }
     }
 }
