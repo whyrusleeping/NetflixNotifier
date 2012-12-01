@@ -54,7 +54,9 @@ namespace HackFall12
         private MovieDataItem parseMovieFromJSON(string body)
         {
             JsonObject jsonObject = JsonObject.Parse(body);
-            return new MovieDataItem("","","","","","");
+            //TODO 
+            return null;
+            //return new MovieDataItem("","","","","","");
         }
 
         //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
