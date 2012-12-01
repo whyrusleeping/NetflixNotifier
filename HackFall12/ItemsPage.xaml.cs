@@ -42,9 +42,7 @@ namespace HackFall12
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-
-            var items = MovieDataSource.GetItems((String)navigationParameter);
-            this.DefaultViewModel["Items"] = items;
+            this.DefaultViewModel["Items"] = MovieDataSourceTest.GetAllItems();
         }
 
         /// <summary>

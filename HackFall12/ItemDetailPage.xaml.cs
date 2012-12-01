@@ -79,7 +79,7 @@ namespace HackFall12
         {
             if (this.itemsViewSource.View != null)
             {
-                var selectedItem = (SampleDataItem)this.itemsViewSource.View.CurrentItem;
+                var selectedItem = (MovieDataItem)this.itemsViewSource.View.CurrentItem;
                 if (selectedItem != null) pageState["SelectedItem"] = selectedItem.UniqueId;
             }
         }

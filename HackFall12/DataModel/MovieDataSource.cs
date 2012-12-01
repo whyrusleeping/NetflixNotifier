@@ -137,9 +137,22 @@ namespace HackFall12.Data
         }
         public static IEnumerable<MovieDataItem> GetItems(string uniqueId)
         {
-            if (!uniqueId.Equals("AllItems"))
-                throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
+            try
+            {
+                if (!uniqueId.Equals("AllItems"))
+                    throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
 
+                return _movieDataSource.AllItems;
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+            
+        }
+
+        public static IEnumerable<MovieDataItem> GetAllItems()
+        {
             return _movieDataSource.AllItems;
         }
 
@@ -174,6 +187,10 @@ namespace HackFall12.Data
             if (!uniqueId.Equals("AllItems")) 
                 throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
 
+            return _movieDataSource.AllItems;
+        }
+        public static IEnumerable<MovieDataItem> GetAllItems()
+        {
             return _movieDataSource.AllItems;
         }
 
