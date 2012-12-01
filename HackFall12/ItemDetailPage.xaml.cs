@@ -47,6 +47,8 @@ namespace HackFall12
             this.pageItem = item;
             this.pageTitle.Text = pageItem.Title;
             this.itemImage.Source = pageItem.Image;
+            this.itemDescription.Text = pageItem.Description;
+            
             //this.itemImage.
 
             if (pageState == null)
