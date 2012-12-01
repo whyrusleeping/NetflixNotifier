@@ -214,9 +214,9 @@ namespace HackFall12.Data
             String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
                         "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
 
-            this.AllItems.Add(new MovieDataItem("LOTR", "LOTR", "http://en.wikipedia.org/wiki/Main_Page", "*****", "Assets/60004480.jpg", "A Very long movie", null));
+            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null));
 
-            this.AllItems.Add(new MovieDataItem("BSG", "Battlestar", "http://en.wikipedia.org/wiki/Main_Page", "*****", "Assets/595265.jpg", "Good show", null));
+            this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null));
         }
     }
 }
