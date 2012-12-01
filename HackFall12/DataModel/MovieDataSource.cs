@@ -129,10 +129,30 @@ namespace HackFall12.Data
     /// </summary>
     public class MovieDataSource
     {
+        private static MovieDataSource _movieDataSource = new MovieDataSource();
         private ObservableCollection<MovieDataItem> _allItems = new ObservableCollection<MovieDataItem>();
         public ObservableCollection<MovieDataItem> AllItems
         {
             get { return this._allItems; }
+        }
+        public static IEnumerable<MovieDataItem> GetItems(string uniqueId)
+        {
+            if (!uniqueId.Equals("AllItems"))
+                throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
+
+            return _movieDataSource.AllItems;
+        }
+
+        public static MovieDataItem GetItem(string uniqueId)
+        {
+            // Simple linear search is acceptable for small data sets
+            var matches = _movieDataSource.AllItems.Where((item) => item.UniqueId.Equals(uniqueId));
+            if (matches.Count() == 1) return matches.First();
+            return null;
+        }
+        public MovieDataSource()
+        {
+
         }
 
     }

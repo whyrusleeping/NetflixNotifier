@@ -52,7 +52,7 @@ namespace HackFall12
         //Creates a movie object from a JSON object
         private MovieDataItem parseMovieFromJSON(string body)
         {
-            return new MovieDataItem("","","","","","",null);
+            return new MovieDataItem("","","","","","");
         }
 
         //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
