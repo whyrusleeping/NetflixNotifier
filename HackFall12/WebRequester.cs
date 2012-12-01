@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using HackFall12.Data;
+using Windows.Data.Json;
 
 namespace HackFall12
 {
@@ -52,7 +53,8 @@ namespace HackFall12
         //Creates a movie object from a JSON object
         private MovieDataItem parseMovieFromJSON(string body)
         {
-            return new MovieDataItem("","","","","","",null);
+            JsonObject jsonObject = JsonObject.Parse(body);
+            return new MovieDataItem();
         }
 
         //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
