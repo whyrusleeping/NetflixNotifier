@@ -69,9 +69,12 @@ namespace HackFall12
             if (e.Key == VirtualKey.Enter)
             {
                 string text = SearchBox.Text;
-                searchResultDetail.Text = text;
-                searchResultTitle.Text = text;
-                SearchBox.Text = "";
+                if (text != "")
+                {
+                    searchResultDetail.Text = text;
+                    searchResultTitle.Text = text;
+                    SearchBox.Text = "";
+                }
             }
         }
 
