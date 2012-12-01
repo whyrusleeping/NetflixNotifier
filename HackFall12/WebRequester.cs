@@ -14,6 +14,7 @@ namespace HackFall12
         private HttpClient client;
         private MovieDataItem _movie;
 
+        //One time only getter for the retreived movie
         public MovieDataItem Movie
         {
             get 
@@ -24,6 +25,7 @@ namespace HackFall12
             }
         }
 
+        //Public constructor, initializes httpclient
         public WebRequester()
         {
             client = new HttpClient();
@@ -31,6 +33,7 @@ namespace HackFall12
             client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
         }
 
+        //Callback to update request status message
         private void updateStatus(string status)
         {
             var del = UpdateStatus;
@@ -40,16 +43,19 @@ namespace HackFall12
             }
         }
 
+        //Creates a request url from a given movie name
         private string makeRequestURL(string movieName)
         {
             return "";
         }
 
+        //Creates a movie object from a JSON object
         private MovieDataItem parseMovieFromJSON(string body)
         {
             return new MovieDataItem("","","","","","",null);
         }
 
+        //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
         public async void GetMovieByName(string name)
         {
             string requestURL = makeRequestURL(name);
