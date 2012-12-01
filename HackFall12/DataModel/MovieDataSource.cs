@@ -30,7 +30,7 @@ namespace HackFall12.Data
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
 
-        public MovieDataCommon(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors)
+        public MovieDataCommon(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors, bool onNetflix)
         {
             this._url = url;
             this._uniqueId = uniqueId;
@@ -39,6 +39,13 @@ namespace HackFall12.Data
             this._description = description;
             this._imagePath = imagePath;
             this._actors = actors;
+            this._onNetflix = onNetflix;
+        }
+        private bool _onNetflix = false;
+        public bool OnNetflix
+        {
+            get { return this._onNetflix; }
+            set { this.SetProperty(ref this._onNetflix, value); }
         }
         private string _url = string.Empty;
         public string URL
@@ -119,8 +126,8 @@ namespace HackFall12.Data
     /// </summary>
     public class MovieDataItem : MovieDataCommon
     {
-        public MovieDataItem(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors)
-            : base(uniqueId, url, title, rating, imagePath, description, actors)
+        public MovieDataItem(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors, bool onNetflix)
+            : base(uniqueId, url, title, rating, imagePath, description, actors, onNetflix)
         {
 
         }
@@ -214,9 +221,15 @@ namespace HackFall12.Data
             String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
                         "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
 
-            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null));
 
-            this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null));
+            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
+
+            this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null, false));
+            for (int i = 0; i < 100; i++)
+            {
+                this.AllItems.Add(new MovieDataItem("LOTR" + i.ToString(), "http://en.wikipedia.org/wiki/Main_Page", "LOTR" + i.ToString() , "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
+                this.AllItems.Add(new MovieDataItem("BSG" + i.ToString(), "http://en.wikipedia.org/wiki/Main_Page", "Battlestar" + i.ToString(), "*****", "Assets/595265.jpg", "Good show", null, false));
+            }
         }
     }
 }

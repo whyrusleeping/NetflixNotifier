@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using Windows.System;
 // The Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234233
 
 namespace HackFall12
@@ -57,6 +57,19 @@ namespace HackFall12
             // by passing required information as a navigation parameter
             var groupId = ((MovieDataItem)e.ClickedItem).UniqueId;
             this.Frame.Navigate(typeof(ItemDetailPage), groupId);
+        }
+
+        private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //TODO go to that URL
+        }
+
+        private void TextBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)// V.Return)
+            {
+                //Key hit
+            }
         }
     }
 }

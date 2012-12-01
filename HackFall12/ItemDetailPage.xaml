@@ -47,16 +47,17 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="377*"/>
-                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="138*"/>
+                <ColumnDefinition Width="53*"/>
+                <ColumnDefinition Width="294*"/>
+                <ColumnDefinition Width="138*"/>
             </Grid.ColumnDefinitions>
             <Image x:Name="itemImage" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
             
             <ScrollViewer Grid.Column="1" Grid.Row="2">
                     <TextBlock x:Name="itemInfo" HorizontalAlignment="Left" Text="No Data Found"/>
             </ScrollViewer>
-            <TextBlock x:Name="itemDescription" Text="No Data Found" Grid.Column="2" Grid.RowSpan="3" Margin="10,0"/>
+            <TextBlock x:Name="itemDescription" Text="No Data Found" Grid.Column="2" Grid.RowSpan="3" Margin="10,0" Grid.ColumnSpan="2"/>
         </Grid>
 
 
