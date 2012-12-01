@@ -73,7 +73,7 @@ namespace HackFall12
                 }
 
 
-                return new MovieDataItem(ID, link, Title,rating, imageURL, synopsis, actors);
+                return new MovieDataItem(ID, link, Title,rating, imageURL, synopsis, actors,false);
             }
             catch (Exception) 
             {
