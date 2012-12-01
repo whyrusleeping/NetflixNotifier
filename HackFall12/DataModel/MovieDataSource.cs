@@ -119,19 +119,11 @@ namespace HackFall12.Data
     /// </summary>
     public class MovieDataItem : MovieDataCommon
     {
-        public MovieDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content)
-            : base(uniqueId, title, subtitle, imagePath, description)
+        public MovieDataItem(String uniqueId, String url, String title, String rating, String imagePath, String description, List<String> actors)
+            : base(uniqueId, url, title, rating, imagePath, description, actors)
         {
-            this._content = content;
-        }
 
-        private string _content = string.Empty;
-        public string Content
-        {
-            get { return this._content; }
-            set { this.SetProperty(ref this._content, value); }
         }
-
 
     }
 
@@ -221,18 +213,10 @@ namespace HackFall12.Data
         {
             String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
                         "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
-            this.AllItems.Add(new MovieDataItem("Item-1",
-                    "Item Title: 1",
-                    "Item Subtitle: 1",
-                    "Assets/60004480.jpg",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT));
-            this.AllItems.Add(new MovieDataItem("Item-2",
-                    "Item Title: 2",
-                    "Item Subtitle: 2",
-                    "Assets/60004480.jpg",
-                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
-                    ITEM_CONTENT));
+
+            this.AllItems.Add(new MovieDataItem("LOTR", "LOTR", "http://en.wikipedia.org/wiki/Main_Page", "*****", "Assets/60004480.jpg", "A Very long movie", null));
+
+            this.AllItems.Add(new MovieDataItem("BSG", "Battlestar", "http://en.wikipedia.org/wiki/Main_Page", "*****", "Assets/595265.jpg", "Good show", null));
         }
     }
 }
