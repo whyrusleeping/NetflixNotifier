@@ -30,6 +30,8 @@ namespace HackFall12
         {
             this.InitializeComponent();
         }
+
+        private MovieDataItem selectedItem;
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -41,10 +43,8 @@ namespace HackFall12
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var group = SampleDataSource.GetGroup((String)navigationParameter);
-            this.DefaultViewModel["Group"] = group;
-            this.DefaultViewModel["Items"] = group.Items;
-
+            var item = MovieDataSourceTest.GetItem((String)navigationParameter);
+            this.selectedItem = item;
 
             if (pageState == null)
             {
@@ -62,7 +62,7 @@ namespace HackFall12
                 // Restore the previously saved state associated with this page
                 if (pageState.ContainsKey("SelectedItem") && this.itemsViewSource.View != null)
                 {
-                    var selectedItem = SampleDataSource.GetItem((String)pageState["SelectedItem"]);
+                    var selectedItem = MovieDataSourceTest.GetItem((String)pageState["SelectedItem"]);
                     this.itemsViewSource.View.MoveCurrentTo(selectedItem);
                 }
             }
