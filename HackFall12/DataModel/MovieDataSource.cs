@@ -105,11 +105,10 @@ namespace HackFall12.Data
     /// </summary>
     public class MovieDataItem : MovieDataCommon
     {
-        public MovieDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content, MovieDataGroup group)
+        public MovieDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content)
             : base(uniqueId, title, subtitle, imagePath, description)
         {
             this._content = content;
-            this._group = group;
         }
 
         private string _content = string.Empty;
@@ -119,100 +118,7 @@ namespace HackFall12.Data
             set { this.SetProperty(ref this._content, value); }
         }
 
-        private MovieDataGroup _group;
-        public MovieDataGroup Group
-        {
-            get { return this._group; }
-            set { this.SetProperty(ref this._group, value); }
-        }
-    }
 
-    /// <summary>
-    /// Generic group data model.
-    /// </summary>
-    public class MovieDataGroup : MovieDataCommon
-    {
-        public MovieDataGroup(String uniqueId, String title, String subtitle, String imagePath, String description)
-            : base(uniqueId, title, subtitle, imagePath, description)
-        {
-            Items.CollectionChanged += ItemsCollectionChanged;
-        }
-
-        private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            // Provides a subset of the full items collection to bind to from a GroupedItemsPage
-            // for two reasons: GridView will not virtualize large items collections, and it
-            // improves the user experience when browsing through groups with large numbers of
-            // items.
-            //
-            // A maximum of 12 items are displayed because it results in filled grid columns
-            // whether there are 1, 2, 3, 4, or 6 rows displayed
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    if (e.NewStartingIndex < 12)
-                    {
-                        TopItems.Insert(e.NewStartingIndex, Items[e.NewStartingIndex]);
-                        if (TopItems.Count > 12)
-                        {
-                            TopItems.RemoveAt(12);
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    if (e.OldStartingIndex < 12 && e.NewStartingIndex < 12)
-                    {
-                        TopItems.Move(e.OldStartingIndex, e.NewStartingIndex);
-                    }
-                    else if (e.OldStartingIndex < 12)
-                    {
-                        TopItems.RemoveAt(e.OldStartingIndex);
-                        TopItems.Add(Items[11]);
-                    }
-                    else if (e.NewStartingIndex < 12)
-                    {
-                        TopItems.Insert(e.NewStartingIndex, Items[e.NewStartingIndex]);
-                        TopItems.RemoveAt(12);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    if (e.OldStartingIndex < 12)
-                    {
-                        TopItems.RemoveAt(e.OldStartingIndex);
-                        if (Items.Count >= 12)
-                        {
-                            TopItems.Add(Items[11]);
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.OldStartingIndex < 12)
-                    {
-                        TopItems[e.OldStartingIndex] = Items[e.OldStartingIndex];
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    TopItems.Clear();
-                    while (TopItems.Count < Items.Count && TopItems.Count < 12)
-                    {
-                        TopItems.Add(Items[TopItems.Count]);
-                    }
-                    break;
-            }
-        }
-
-        private ObservableCollection<MovieDataItem> _items = new ObservableCollection<MovieDataItem>();
-        public ObservableCollection<MovieDataItem> Items
-        {
-            get { return this._items; }
-        }
-
-        private ObservableCollection<MovieDataItem> _topItem = new ObservableCollection<MovieDataItem>();
-        public ObservableCollection<MovieDataItem> TopItems
-        {
-            get { return this._topItem; }
-        }
     }
 
     /// <summary>
@@ -221,42 +127,81 @@ namespace HackFall12.Data
     /// SampleDataSource initializes with placeholder data rather than live production
     /// data so that sample data is provided at both design-time and run-time.
     /// </summary>
-    public sealed class MovieDataSource
+    public class MovieDataSource
     {
         private static MovieDataSource _movieDataSource = new MovieDataSource();
-
-        private ObservableCollection<MovieDataGroup> _allGroups = new ObservableCollection<MovieDataGroup>();
-        public ObservableCollection<MovieDataGroup> AllGroups
+        private ObservableCollection<MovieDataItem> _allItems = new ObservableCollection<MovieDataItem>();
+        public ObservableCollection<MovieDataItem> AllItems
         {
-            get { return this._allGroups; }
+            get { return this._allItems; }
         }
-
-        public static IEnumerable<MovieDataGroup> GetGroups(string uniqueId)
+        public static IEnumerable<MovieDataItem> GetItems(string uniqueId)
         {
-            if (!uniqueId.Equals("AllGroups")) throw new ArgumentException("Only 'AllGroups' is supported as a collection of groups");
+            if (!uniqueId.Equals("AllItems"))
+                throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
 
-            return _movieDataSource.AllGroups;
-        }
-
-        public static MovieDataGroup GetGroup(string uniqueId)
-        {
-            // Simple linear search is acceptable for small data sets
-            var matches = _movieDataSource.AllGroups.Where((group) => group.UniqueId.Equals(uniqueId));
-            if (matches.Count() == 1) return matches.First();
-            return null;
+            return _movieDataSource.AllItems;
         }
 
         public static MovieDataItem GetItem(string uniqueId)
         {
             // Simple linear search is acceptable for small data sets
-            var matches = _movieDataSource.AllGroups.SelectMany(group => group.Items).Where((item) => item.UniqueId.Equals(uniqueId));
+            var matches = _movieDataSource.AllItems.Where((item) => item.UniqueId.Equals(uniqueId));
+            if (matches.Count() == 1) return matches.First();
+            return null;
+        }
+        public MovieDataSource()
+        {
+
+        }
+
+    }
+
+    public sealed class MovieDataSourceTest
+    {
+
+        private static MovieDataSourceTest _movieDataSource = new MovieDataSourceTest();
+
+        private ObservableCollection<MovieDataItem> _allItems = new ObservableCollection<MovieDataItem>();
+        public ObservableCollection<MovieDataItem> AllItems
+        {
+            get { return this._allItems; }
+        }
+
+
+        public static IEnumerable<MovieDataItem> GetItems(string uniqueId)
+        {
+            if (!uniqueId.Equals("AllItems")) 
+                throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
+
+            return _movieDataSource.AllItems;
+        }
+
+        public static MovieDataItem GetItem(string uniqueId)
+        {
+            // Simple linear search is acceptable for small data sets
+            var matches = _movieDataSource.AllItems.Where((item) => item.UniqueId.Equals(uniqueId));
             if (matches.Count() == 1) return matches.First();
             return null;
         }
 
-        public MovieDataSource()
+
+        public MovieDataSourceTest()
         {
-            
+            String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
+                        "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
+            this.AllItems.Add(new MovieDataItem("Item-1",
+                    "Item Title: 1",
+                    "Item Subtitle: 1",
+                    "Assets/LightGray.png",
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    ITEM_CONTENT));
+            this.AllItems.Add(new MovieDataItem("Item-2",
+                    "Item Title: 2",
+                    "Item Subtitle: 2",
+                    "Assets/LightGray.png",
+                    "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
+                    ITEM_CONTENT));
         }
     }
 }

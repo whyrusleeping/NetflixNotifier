@@ -58,7 +58,7 @@ namespace HackFall12
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
             var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(SplitPage), groupId);
+            this.Frame.Navigate(typeof(ItemDetailPage), groupId);
         }
     }
 }
