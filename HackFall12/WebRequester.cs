@@ -18,6 +18,7 @@ namespace HackFall12
         private const string baseMovieUrl = "http://movies.netflix.com/WiPlayer?movieid=";
         private const string query = "/available/";
         public Action RequestFinishedCallback;
+        public Action<string, bool> AvailabilityCallback; 
 
         //One time only getter for the retreived movie
         public MovieDataItem Movie
@@ -100,6 +101,7 @@ namespace HackFall12
 
                 updateStatus("Requesting movie...");
                 HttpResponseMessage response = await client.GetAsync(requestURL);
+                
                 response.EnsureSuccessStatusCode();
                 updateStatus("Parsing Retrieved Data...");
                 responseBody = await response.Content.ReadAsStringAsync();
@@ -119,6 +121,28 @@ namespace HackFall12
 
         }
 
+        public async void CheckAvailablilityByName(string name)
+        {
+            string requestURL = makeRequestURL(name);
+            try
+            {
+                string responseBody;
+
+                HttpResponseMessage response = await client.GetAsync(requestURL);
+
+                response.EnsureSuccessStatusCode();
+                responseBody = await response.Content.ReadAsStringAsync();
+                responseBody = responseBody.Replace("<br>", Environment.NewLine);
+                MovieDataItem mov = parseMovieFromJSON(responseBody);
+                if (AvailabilityCallback != null)
+                {
+                    AvailabilityCallback(name, mov.OnNetflix);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
 
     }
 }

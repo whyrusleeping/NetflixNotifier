@@ -39,6 +39,7 @@ namespace HackFall12
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
             webRequester.RequestFinishedCallback += ReqComplete;
+            webRequester.AvailabilityCallback += MovieAvaliablilityFunct;
             this.KeyUp +=ItemsPage_KeyUp;
             this.KeyDown +=ItemsPage_KeyDown;
             this.InitializeComponent();
@@ -183,10 +184,24 @@ namespace HackFall12
             foundItem = null;
             searching = false;
         }
+
         public void UpdateStatus(String update)
         {
             this.SearchBox.Text = update;
         }
 
+        public void MovieAvaliablilityFunct(string title, bool avail)
+        {
+            
+        }
+
+        public void CheckForUpdates()
+        {
+            foreach (var movieDataItem in MovieDataSourceTest.GetAllItems())
+            {
+                if(movieDataItem.OnNetflix == false)
+                    webRequester.CheckAvailablilityByName(movieDataItem.Title);
+            }
+        }
     }
 }
