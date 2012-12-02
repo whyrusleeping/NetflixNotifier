@@ -11,10 +11,10 @@ namespace HackFall12
 {
     public class WebRequester
     {
-        public Action<string> UpdateStatus;
+        public Action<string> UpdateStatusAction;
         private HttpClient client;
         private MovieDataItem _movie;
-        private const string server = "125.125.125.125";
+        private string server = "http://125.125.125.125";
         private const string query = "/avaliable/";
 
         //One time only getter for the retreived movie
@@ -29,8 +29,9 @@ namespace HackFall12
         }
 
         //Public constructor, initializes httpclient
-        public WebRequester()
+        public WebRequester(string serverUrl)
         {
+            server = serverUrl;
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
             client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)");
@@ -39,7 +40,7 @@ namespace HackFall12
         //Callback to update request status message
         private void updateStatus(string status)
         {
-            var del = UpdateStatus;
+            var del = UpdateStatusAction;
             if (del != null)
             {
                 del(status);
@@ -66,7 +67,7 @@ namespace HackFall12
                 string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
                 string synopsis = "";
 
-                List<string> actors = new List<string>();
+                var actors = new List<string>();
                 foreach (var actorPair in jsonObject["cast"].GetArray())
                 {
                     actors.Add(actorPair.GetObject()["name"].GetString());
@@ -81,6 +82,8 @@ namespace HackFall12
                 return null;
             }
         }
+
+
 
         //Searches for a movie with the given name, places it in the public Movie variable for access after its done.
         public async void GetMovieByName(string name)
@@ -97,6 +100,7 @@ namespace HackFall12
                 responseBody = await response.Content.ReadAsStringAsync();
                 responseBody = responseBody.Replace("<br>", Environment.NewLine);
                 _movie = parseMovieFromJSON(responseBody);
+                updateStatus("Finished");
             }
             catch (Exception)
             {
