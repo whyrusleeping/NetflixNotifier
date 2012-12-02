@@ -80,7 +80,8 @@ namespace HackFall12
                     string text = SearchBox.Text;
                     if (text != "")
                     {
-                        webRequester.GetMovieByName(text);
+                        string s = new string(text.ToCharArray().Where(char.IsLetterOrDigit).ToArray());
+                        webRequester.GetMovieByName(s);
                         Search_Done(webRequester.Movie);
                     }
                 }
