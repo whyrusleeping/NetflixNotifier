@@ -142,12 +142,15 @@
     <Content Include="Assets\595265.jpg" />
     <Content Include="Assets\60004480.jpg" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\minicon.png" />
+    <Content Include="Assets\NNMain.jpg" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Images\windows-sdk.png.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

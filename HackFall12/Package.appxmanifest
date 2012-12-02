@@ -1,39 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="02e62a3e-1196-47d3-bf83-c3f7cdd9ab81"
-            Publisher="CN=travi_000"
-            Version="1.0.0.0" />
-
+  <Identity Name="02e62a3e-1196-47d3-bf83-c3f7cdd9ab81" Publisher="CN=travi_000" Version="1.0.0.0" />
   <Properties>
     <DisplayName>HackFall12</DisplayName>
     <PublisherDisplayName>travi_000</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="HackFall12.App">
-        <VisualElements
-            DisplayName="HackFall12"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="HackFall12"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HackFall12.App">
+      <VisualElements DisplayName="Netflix Watcher" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Watch Netflix for movies you'd like to see." ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+      </VisualElements>
     </Application>
   </Applications>
   <Capabilities>
