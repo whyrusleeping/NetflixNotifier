@@ -1,4 +1,5 @@
-﻿using HackFall12.Data;
+﻿using System.Threading.Tasks;
+using HackFall12.Data;
 
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace HackFall12
             this.KeyUp +=ItemsPage_KeyUp;
             this.KeyDown +=ItemsPage_KeyDown;
             this.InitializeComponent();
+            Task.Run(() => CheckMovies());
         }
 
         private void ItemsPage_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -200,6 +202,16 @@ namespace HackFall12
             {
                 if(movieDataItem.OnNetflix == false)
                     webRequester.CheckAvailablilityByName(movieDataItem.Title);
+            }
+        }
+
+        //Usage: Task.Run(() => CheckMovies());
+        public async Task CheckMovies()
+        {
+            while (true)
+            {
+                await Task.Delay(5000);
+                CheckForUpdates();
             }
         }
     }
