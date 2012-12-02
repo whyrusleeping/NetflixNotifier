@@ -338,7 +338,7 @@
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick" Grid.Row="1" Grid.Column="2" Margin="0,1,0,10" Grid.RowSpan="4"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard250x250ItemTemplate}" ItemContainerStyle="{StaticResource GridViewItemCheck}"
+            ItemTemplate="{StaticResource Standard250x250ItemTemplate}" ItemContainerStyle="{StaticResource GridViewItemCheck}" IsHoldingEnabled="False" IsTapEnabled="False" IsDoubleTapEnabled="False"
         />
 
         <!-- Vertical scrolling list only used when snapped -->

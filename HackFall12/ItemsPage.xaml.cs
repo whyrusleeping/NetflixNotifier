@@ -31,7 +31,7 @@ namespace HackFall12
         MovieDataSourceTest mainSource;
         public ItemsPage()
         {
-            webRequester = new WebRequester("");
+            webRequester = new WebRequester("http://twilio.nints.com:8885");
             mainSource = new MovieDataSourceTest();
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
