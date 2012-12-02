@@ -217,6 +217,23 @@ namespace HackFall12.Data
         {
             return _movieDataSource.AllItems;
         }
+        public static void RemoveItem(string uniqueId)
+        {
+            foreach (MovieDataItem cur in _movieDataSource.AllItems)
+            {
+                if (cur.UniqueId == uniqueId)
+                    _movieDataSource.AllItems.Remove(cur);
+            }
+        }
+        public static void RemoveItem(MovieDataItem item)
+        {
+            _movieDataSource.AllItems.Remove(item);
+        }
+
+        public static void AddItem(MovieDataItem item)
+        {
+            _movieDataSource.AllItems.Add(item);
+        }
 
         public static MovieDataItem GetItem(string uniqueId)
         {

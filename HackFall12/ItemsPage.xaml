@@ -295,7 +295,8 @@
                                             </Grid>
                                         </Border>
                                         <TextBlock x:Name="MultiArrangeOverlayText" Foreground="{StaticResource ListViewItemDragForegroundThemeBrush}" FontSize="26.667" FontFamily="{StaticResource ContentControlThemeFontFamily}" IsHitTestVisible="False" Margin="18,9,0,5" Opacity="0" TextWrapping="Wrap" Text="{Binding TemplateSettings.DragItemsCount, RelativeSource={RelativeSource Mode=TemplatedParent}}" TextTrimming="WordEllipsis"/>
-                                        <TextBlock x:Name="OnNetflix" Text="{Binding StringOnNetflix}" HorizontalAlignment="Left" Margin="18,226,0,4" TextWrapping="Wrap" Width="240" Grid.RowSpan="2"/>
+                                        <TextBlock x:Name="OnNetflix" Text="{Binding StringOnNetflix}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18,226,0,4" TextWrapping="Wrap" Width="240" Grid.RowSpan="2"/>
+                                        <TextBlock Text="Remove" HorizontalAlignment="Right" Grid.RowSpan="2" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="18,10,10,5" />
                                     </Grid>
                                 </Border>
                             </Grid>

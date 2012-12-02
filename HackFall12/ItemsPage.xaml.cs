@@ -28,14 +28,34 @@ namespace HackFall12
     {
         private WebRequester webRequester;
         private MovieDataItem foundItem;
-        MovieDataSourceTest mainSource;
+        private MovieDataSourceTest mainSource;
+        private bool controlDown;
         public ItemsPage()
         {
+            controlDown = false;
             webRequester = new WebRequester("http://twilio.nints.com:8885");
             mainSource = new MovieDataSourceTest();
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
+            this.KeyUp +=ItemsPage_KeyUp;
+            this.KeyDown +=ItemsPage_KeyDown;
             this.InitializeComponent();
+        }
+
+        private void ItemsPage_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Shift)
+            {
+                controlDown = true;
+            }
+        }
+
+        private void ItemsPage_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Shift)
+            {
+                controlDown = false;
+            }
         }
 
         /// <summary>
@@ -60,10 +80,20 @@ namespace HackFall12
         /// <param name="e">Event data that describes the item clicked.</param>
         void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Navigate to the appropriate destination page, configuring the new page
-            // by passing required information as a navigation parameter
-            var groupId = ((MovieDataItem)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(ItemDetailPage), groupId);
+            var itemId = ((MovieDataItem)e.ClickedItem).UniqueId;
+            var item = ((MovieDataItem)e.ClickedItem);
+            if (controlDown)
+            {
+                MovieDataSourceTest.RemoveItem(item);
+                //1this.mainSource.AllItems.Remove((MovieDataItem)e.ClickedItem);
+            }
+            else
+            {
+                // Navigate to the appropriate destination page, configuring the new page
+                // by passing required information as a navigation parameter
+                
+                this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            }
         }
 
         private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
@@ -138,7 +168,7 @@ namespace HackFall12
                 addButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
                 // add this to our watch list
-                mainSource.AllItems.Add(foundItem);
+                MovieDataSourceTest.AddItem(foundItem);
             }
             foundItem = null;
         }
@@ -146,5 +176,6 @@ namespace HackFall12
         {
             this.SearchBox.Text = update;
         }
+
     }
 }
