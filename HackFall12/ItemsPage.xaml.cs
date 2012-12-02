@@ -207,7 +207,6 @@ namespace HackFall12
             }
         }
 
-        //Usage: Task.Run(() => CheckMovies());
         public async Task CheckMovies()
         {
             while (true)
@@ -216,5 +215,4 @@ namespace HackFall12
                 CheckForUpdates();
             }
         }
-    }
 }

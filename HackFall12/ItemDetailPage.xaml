@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="135*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Margin="36,0,0,36"/>
-            <TextBlock x:Name="pageTitle" Text="{Binding Item.Title}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false" Margin="0,0,3,40"/>
+            <TextBlock x:Name="pageTitle" Text="{Binding Item.Title}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false" Margin="10,0,3,40"/>
             <Button x:Name="watchOnNetflixButton" Visibility="Collapsed" Content="Watch on Netflix" Grid.Column="2" HorizontalAlignment="Stretch" Margin="35,27,32,22" VerticalAlignment="Stretch" Click="watchOnNetflixButton_Click"/>
         </Grid>
         <Grid Grid.Row="1" Margin="0,0,0,10">
