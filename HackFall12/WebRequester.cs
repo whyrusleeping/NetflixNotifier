@@ -15,6 +15,7 @@ namespace HackFall12
         private HttpClient client;
         private MovieDataItem _movie;
         private string server = "http://125.125.125.125";
+        private const string baseMovieUrl = "http://movies.netflix.com/WiPlayer?movieid=";
         private const string query = "/available/";
         public Action RequestFinishedCallback;
 
@@ -63,7 +64,9 @@ namespace HackFall12
                 JsonObject jsonObject = JsonObject.Parse(body);
                 string Title = jsonObject["title"].GetObject()["regular"].GetString();
                 string ID = jsonObject["id"].Stringify();
-                string link = jsonObject["link"].GetArray()[0].GetObject()["href"].GetString();
+                var spl = ID.Split('/');
+                ID = spl[spl.Count() - 1].TrimEnd('\"');
+                string link = baseMovieUrl + ID;
                 string rating = jsonObject["average_rating"].GetNumber().ToString();
                 string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
                 string synopsis = "";
