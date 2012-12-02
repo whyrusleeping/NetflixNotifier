@@ -31,10 +31,10 @@ namespace HackFall12
         MovieDataSourceTest mainSource;
         public ItemsPage()
         {
-            webRequester = new WebRequester();
+            webRequester = new WebRequester("");
             mainSource = new MovieDataSourceTest();
             foundItem = null;
-            webRequester.UpdateStatus += UpdateStatus;
+            webRequester.UpdateStatusAction += UpdateStatus;
             this.InitializeComponent();
         }
 
@@ -143,12 +143,6 @@ namespace HackFall12
         }
         public void UpdateStatus(String update)
         {
-            /*
-            if (update.ToLower().Contains("finished") || update.ToLower().Contains("failed"))
-            {
-                
-            }
-             */
             this.SearchBox.Text = update;
         }
     }
