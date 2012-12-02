@@ -48,6 +48,17 @@ namespace HackFall12.Data
             set { this.SetProperty(ref this._onNetflix, value); }
         }
         private string _url = string.Empty;
+
+        public string StringOnNetflix
+        {
+            get
+            {
+                if (OnNetflix)
+                    return "On Netflix.";
+                else
+                    return "Not on Netflix.";
+            }
+        }
         public string URL
         {
             get { return this._url; }

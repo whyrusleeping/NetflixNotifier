@@ -101,7 +101,7 @@ namespace HackFall12
             catch (Exception)
             {
                 updateStatus("Movie Request Failed");
-                throw;
+                //throw;
             }
         }
 
