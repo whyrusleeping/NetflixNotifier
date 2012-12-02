@@ -159,25 +159,34 @@ namespace HackFall12.Data
         {
             get { return this._allItems; }
         }
+
         public static IEnumerable<MovieDataItem> GetItems(string uniqueId)
         {
-            try
-            {
-                if (!uniqueId.Equals("AllItems"))
-                    throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
+            if (!uniqueId.Equals("AllItems"))
+                throw new ArgumentException("Only 'AllItems' is supported as a collection of groups");
 
-                return _movieDataSource.AllItems;
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
-            
+            return _movieDataSource.AllItems;
         }
-
         public static IEnumerable<MovieDataItem> GetAllItems()
         {
             return _movieDataSource.AllItems;
+        }
+        public static void RemoveItem(string uniqueId)
+        {
+            foreach (MovieDataItem cur in _movieDataSource.AllItems)
+            {
+                if (cur.UniqueId == uniqueId)
+                    _movieDataSource.AllItems.Remove(cur);
+            }
+        }
+        public static void RemoveItem(MovieDataItem item)
+        {
+            _movieDataSource.AllItems.Remove(item);
+        }
+
+        public static void AddItem(MovieDataItem item)
+        {
+            _movieDataSource.AllItems.Insert(0, item);
         }
 
         public static MovieDataItem GetItem(string uniqueId)
@@ -189,6 +198,8 @@ namespace HackFall12.Data
         }
         public MovieDataSource()
         {
+            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
+            this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null, false));
 
         }
 
@@ -232,7 +243,7 @@ namespace HackFall12.Data
 
         public static void AddItem(MovieDataItem item)
         {
-            _movieDataSource.AllItems.Add(item);
+            _movieDataSource.AllItems.Insert(0, item);
         }
 
         public static MovieDataItem GetItem(string uniqueId)
@@ -246,14 +257,9 @@ namespace HackFall12.Data
 
         public MovieDataSourceTest()
         {
-            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "http://cdn-0.nflximg.com/us/boxshots/large/60004180.jpg", "A Very long movie", null, true));
+            this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
             this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null, false));
 
-            for (int i = 0; i < 100; i++)
-            {
-                this.AllItems.Add(new MovieDataItem("LOTR" + i.ToString(), "http://en.wikipedia.org/wiki/Main_Page", "LOTR" + i.ToString() , "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
-                this.AllItems.Add(new MovieDataItem("BSG" + i.ToString(), "http://en.wikipedia.org/wiki/Main_Page", "Battlestar" + i.ToString(), "*****", "Assets/595265.jpg", "Good show", null, false));
-            }
         }
     }
 }

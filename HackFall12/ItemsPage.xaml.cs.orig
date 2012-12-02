@@ -28,9 +28,13 @@ namespace HackFall12
     {
         private WebRequester webRequester;
         private MovieDataItem foundItem;
+<<<<<<< HEAD
         private MovieDataSourceTest mainSource;
         private bool controlDown;
+=======
+        MovieDataSourceTest mainSource;
         private bool searching;
+>>>>>>> 3c70735d08f0255f00145ccfc831fc47dbea057b
         public ItemsPage()
         {
             controlDown = false;
@@ -38,9 +42,12 @@ namespace HackFall12
             mainSource = new MovieDataSourceTest();
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
-            webRequester.RequestFinishedCallback += ReqComplete;
+<<<<<<< HEAD
             this.KeyUp +=ItemsPage_KeyUp;
             this.KeyDown +=ItemsPage_KeyDown;
+=======
+            webRequester.RequestFinishedCallback += ReqComplete;
+>>>>>>> 3c70735d08f0255f00145ccfc831fc47dbea057b
             this.InitializeComponent();
         }
 
@@ -49,7 +56,6 @@ namespace HackFall12
             if (e.Key == VirtualKey.Shift)
             {
                 controlDown = true;
-                
             }
         }
 
