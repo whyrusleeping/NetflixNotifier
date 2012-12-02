@@ -188,7 +188,11 @@ namespace HackFall12
 
         public void MovieAvaliablilityFunct(string title, bool avail)
         {
-            
+            if (avail)
+            {
+                //emit notification that movie is now available
+                //update movie in our database
+            }
         }
 
         public void CheckForUpdates()
