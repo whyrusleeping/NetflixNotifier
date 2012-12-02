@@ -68,18 +68,25 @@ namespace HackFall12
 
         private void itemListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //TODO go to that URL
+            Launcher.LaunchUriAsync(new Uri(((MovieDataItem)e.ClickedItem).URL));
         }
 
         private void Search_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                string text = SearchBox.Text;
-                if (text != "")
+                if (foundItem == null)
                 {
-                    webRequester.GetMovieByName(text);
-                    Search_Done(webRequester.Movie);
+                    string text = SearchBox.Text;
+                    if (text != "")
+                    {
+                        webRequester.GetMovieByName(text);
+                        Search_Done(webRequester.Movie);
+                    }
+                }
+                else
+                {
+                    Add_Movie();
                 }
             }
         }
@@ -115,6 +122,11 @@ namespace HackFall12
         }
 
         private void Add_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+            Add_Movie();
+        }
+
+        private void Add_Movie()
         {
             if (foundItem != null)
             {

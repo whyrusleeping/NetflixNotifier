@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using Windows.System;
 // The Item Detail Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234232
 
 namespace HackFall12
@@ -48,6 +48,11 @@ namespace HackFall12
             this.pageTitle.Text = pageItem.Title;
             this.itemImage.Source = pageItem.Image;
             this.itemDescription.Text = pageItem.Description;
+            if (pageItem.OnNetflix)
+            {
+                this.watchOnNetflixButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                // Show the button.
+            }
             
             //this.itemImage.
 
@@ -172,6 +177,11 @@ namespace HackFall12
             // suffix when viewing details instead of the list
             var defaultStateName = base.DetermineVisualState(viewState);
             return logicalPageBack ? defaultStateName + "_Detail" : defaultStateName;
+        }
+
+        private void watchOnNetflixButton_Click(object sender, RoutedEventArgs e)
+        {
+            Launcher.LaunchUriAsync(new Uri(pageItem.URL));
         }
 
     }
