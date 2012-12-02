@@ -29,6 +29,7 @@ namespace HackFall12
         private WebRequester webRequester;
         private MovieDataItem foundItem;
         MovieDataSourceTest mainSource;
+        private bool searching;
         public ItemsPage()
         {
             webRequester = new WebRequester("http://twilio.nints.com:8885");
@@ -74,10 +75,11 @@ namespace HackFall12
 
         private void Search_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter)
+            if (e.Key == VirtualKey.Enter && !searching)
             {
                 if (foundItem == null)
                 {
+                    searching = true;
                     string text = SearchBox.Text;
                     if (text != "")
                     {
@@ -95,6 +97,7 @@ namespace HackFall12
         public void ReqComplete()
         {
             Search_Done(webRequester.Movie);
+            searching = false;
         }
 
         private void Search_Done(MovieDataItem newItem)
@@ -147,6 +150,7 @@ namespace HackFall12
                 mainSource.AllItems.Add(foundItem);
             }
             foundItem = null;
+            searching = false;
         }
         public void UpdateStatus(String update)
         {
