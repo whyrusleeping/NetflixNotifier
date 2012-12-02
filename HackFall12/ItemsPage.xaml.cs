@@ -26,8 +26,15 @@ namespace HackFall12
     /// </summary>
     public sealed partial class ItemsPage : HackFall12.Common.LayoutAwarePage
     {
+        private WebRequester webRequester;
+        private MovieDataItem foundItem;
+        MovieDataSourceTest mainSource;
         public ItemsPage()
         {
+            webRequester = new WebRequester();
+            mainSource = new MovieDataSourceTest();
+            foundItem = null;
+            webRequester.UpdateStatus += UpdateStatus;
             this.InitializeComponent();
         }
 
@@ -69,15 +76,35 @@ namespace HackFall12
             if (e.Key == VirtualKey.Enter)
             {
                 string text = SearchBox.Text;
-                searchResultDetail.Text = text;
-                searchResultTitle.Text = text;
-                SearchBox.Text = "";
+                if (text != "")
+                {
+                    webRequester.GetMovieByName(text);
+                    Search_Done(webRequester.Movie);
+                }
             }
+        }
+        private void Search_Done(MovieDataItem newItem)
+        {
+            if (newItem != null)
+            {
+                searchTitleScroll.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                searchDetailScroll.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                searchResultImg.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                addButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+
+
+                searchResultDetail.Text = newItem.Description;
+                searchResultTitle.Text = newItem.Title;
+                searchResultImg.Source = newItem.Image;
+                SearchBox.Text = "";
+                foundItem = newItem;
+            }
+
         }
 
         private void Search_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if (SearchBox.Text == "Search Here")
+            if (SearchBox.Text == "Search Here" || SearchBox.Text.ToLower().Contains("finished") || SearchBox.Text.ToLower().Contains("failed"))
                 SearchBox.Text = "";
         }
 
@@ -85,6 +112,32 @@ namespace HackFall12
         {
             if (SearchBox.Text == "")
                 SearchBox.Text = "Search Here";
+        }
+
+        private void Add_Button_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (foundItem != null)
+            {
+                //TODO hide everything again...
+                searchTitleScroll.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                searchDetailScroll.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                searchResultImg.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                addButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+                // add this to our watch list
+                mainSource.AllItems.Add(foundItem);
+            }
+            foundItem = null;
+        }
+        public void UpdateStatus(String update)
+        {
+            /*
+            if (update.ToLower().Contains("finished") || update.ToLower().Contains("failed"))
+            {
+                
+            }
+             */
+            this.SearchBox.Text = update;
         }
     }
 }

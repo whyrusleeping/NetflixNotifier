@@ -48,6 +48,17 @@ namespace HackFall12.Data
             set { this.SetProperty(ref this._onNetflix, value); }
         }
         private string _url = string.Empty;
+
+        public string StringOnNetflix
+        {
+            get
+            {
+                if (OnNetflix)
+                    return "On Netflix.";
+                else
+                    return "Not on Netflix.";
+            }
+        }
         public string URL
         {
             get { return this._url; }
@@ -218,13 +229,9 @@ namespace HackFall12.Data
 
         public MovieDataSourceTest()
         {
-            String ITEM_CONTENT = String.Format("Item Content: {0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}\n\n{0}",
-                        "Curabitur class aliquam vestibulum nam curae maecenas sed integer cras phasellus suspendisse quisque donec dis praesent accumsan bibendum pellentesque condimentum adipiscing etiam consequat vivamus dictumst aliquam duis convallis scelerisque est parturient ullamcorper aliquet fusce suspendisse nunc hac eleifend amet blandit facilisi condimentum commodo scelerisque faucibus aenean ullamcorper ante mauris dignissim consectetuer nullam lorem vestibulum habitant conubia elementum pellentesque morbi facilisis arcu sollicitudin diam cubilia aptent vestibulum auctor eget dapibus pellentesque inceptos leo egestas interdum nulla consectetuer suspendisse adipiscing pellentesque proin lobortis sollicitudin augue elit mus congue fermentum parturient fringilla euismod feugiat");
-
-
             this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "http://cdn-0.nflximg.com/us/boxshots/large/60004180.jpg", "A Very long movie", null, true));
-
             this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null, false));
+
             for (int i = 0; i < 100; i++)
             {
                 this.AllItems.Add(new MovieDataItem("LOTR" + i.ToString(), "http://en.wikipedia.org/wiki/Main_Page", "LOTR" + i.ToString() , "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
