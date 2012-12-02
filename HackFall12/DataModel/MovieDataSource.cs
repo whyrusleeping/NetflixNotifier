@@ -257,9 +257,10 @@ namespace HackFall12.Data
 
         public MovieDataSourceTest()
         {
+            /*
             this.AllItems.Add(new MovieDataItem("LOTR", "http://en.wikipedia.org/wiki/Main_Page", "LOTR", "*****", "Assets/60004480.jpg", "A Very long movie", null, true));
             this.AllItems.Add(new MovieDataItem("BSG", "http://en.wikipedia.org/wiki/Main_Page", "Battlestar", "*****", "Assets/595265.jpg", "Good show", null, false));
-
+            */
         }
     }
 }

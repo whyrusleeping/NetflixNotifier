@@ -190,6 +190,9 @@ namespace HackFall12
         {
             if (avail)
             {
+                Notifier.GenerateToast("New Movie Avaliable: " + title);
+                MovieDataSourceTest.GetAllItems().Where(m => m.Title == title).ElementAt(0).OnNetflix = true;
+ 
                 //emit notification that movie is now available
                 //update movie in our database
             }
