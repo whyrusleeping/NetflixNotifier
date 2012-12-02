@@ -14,8 +14,14 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml.Navigation;
 using Windows.System;
+using System.Xml;
+using System.Text;
+using Windows.Data.Xml.Dom;
+
+
 // The Item Detail Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234232
 
 namespace HackFall12
@@ -48,6 +54,8 @@ namespace HackFall12
             this.pageTitle.Text = pageItem.Title;
             this.itemImage.Source = pageItem.Image;
             this.itemDescription.Text = pageItem.Description;
+            Notifier.UpdateTile("");
+            Notifier.GenerateToast("");
             if (pageItem.OnNetflix)
             {
                 this.watchOnNetflixButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
@@ -184,6 +192,10 @@ namespace HackFall12
             Launcher.LaunchUriAsync(new Uri(pageItem.URL));
         }
 
+
+
     }
         #endregion
+
+ 
 }
