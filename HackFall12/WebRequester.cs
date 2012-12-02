@@ -70,7 +70,7 @@ namespace HackFall12
                 string link = baseMovieUrl + ID;
                 string rating = jsonObject["average_rating"].GetNumber().ToString();
                 string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
-                string synopsis = "";
+                string synopsis = jsonObject.ContainsKey("synopsis") ? jsonObject["synopsis"].GetString() : "";
                 bool avaliable = jsonObject["available"].GetBoolean();
 
                 var actors = new List<string>();
