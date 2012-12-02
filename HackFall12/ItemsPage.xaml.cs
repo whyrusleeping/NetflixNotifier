@@ -28,12 +28,14 @@ namespace HackFall12
     public sealed partial class ItemsPage : HackFall12.Common.LayoutAwarePage
     {
         private WebRequester webRequester;
+        private bool stale;
         private MovieDataItem foundItem;
         private MovieDataSourceTest mainSource;
         private bool controlDown;
         private bool searching;
         public ItemsPage()
         {
+            stale = true;
             controlDown = false;
             webRequester = new WebRequester("http://twilio.nints.com:8885");
             mainSource = new MovieDataSourceTest();
@@ -41,8 +43,8 @@ namespace HackFall12
             webRequester.UpdateStatusAction += UpdateStatus;
             webRequester.RequestFinishedCallback += ReqComplete;
             webRequester.AvailabilityCallback += MovieAvaliablilityFunct;
-            this.KeyUp +=ItemsPage_KeyUp;
-            this.KeyDown +=ItemsPage_KeyDown;
+            this.KeyUp += ItemsPage_KeyUp;
+            this.KeyDown += ItemsPage_KeyDown;
             this.InitializeComponent();
             Task.Run(() => CheckMovies());
         }
@@ -52,7 +54,7 @@ namespace HackFall12
             if (e.Key == VirtualKey.Shift)
             {
                 controlDown = true;
-                
+
             }
         }
 
@@ -97,7 +99,7 @@ namespace HackFall12
             {
                 // Navigate to the appropriate destination page, configuring the new page
                 // by passing required information as a navigation parameter
-                
+
                 this.Frame.Navigate(typeof(ItemDetailPage), itemId);
             }
         }
@@ -150,13 +152,19 @@ namespace HackFall12
         private void Search_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             if (SearchBox.Text == "Search Here" || SearchBox.Text.ToLower().Contains("finished") || SearchBox.Text.ToLower().Contains("failed"))
+            {
                 SearchBox.Text = "";
+                stale = false;
+            }
         }
 
         private void Search_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             if (SearchBox.Text == "")
+            {
                 SearchBox.Text = "Search Here";
+                stale = true;
+            }
         }
 
         private void Add_Button_Clicked(object sender, RoutedEventArgs e)
@@ -184,6 +192,7 @@ namespace HackFall12
         public void UpdateStatus(String update)
         {
             this.SearchBox.Text = update;
+            stale = true;
         }
 
         public void MovieAvaliablilityFunct(string title, bool avail)
@@ -192,7 +201,7 @@ namespace HackFall12
             {
                 Notifier.GenerateToast("New Movie Avaliable: " + title);
                 MovieDataSourceTest.GetAllItems().Where(m => m.Title == title).ElementAt(0).OnNetflix = true;
- 
+
                 //emit notification that movie is now available
                 //update movie in our database
             }
@@ -202,7 +211,7 @@ namespace HackFall12
         {
             foreach (var movieDataItem in MovieDataSourceTest.GetAllItems())
             {
-                if(movieDataItem.OnNetflix == false)
+                if (movieDataItem.OnNetflix == false)
                     webRequester.CheckAvailablilityByName(movieDataItem.Title);
             }
         }
@@ -215,4 +224,15 @@ namespace HackFall12
                 CheckForUpdates();
             }
         }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (stale)
+            {
+                SearchBox.Text = "";
+                stale = false;
+            }
+
+        }
+    }
 }

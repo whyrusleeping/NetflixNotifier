@@ -369,7 +369,7 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="Netflix Notifer" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
         <Image x:Name="searchResultImg" Visibility="Collapsed" Margin="10,5,10,0" Grid.Row="2"/>
-        <TextBox x:Name="SearchBox" Margin="10,5,5,10" Grid.Row="1" TextChanged="SearchBox_TextChanged" TextWrapping="Wrap" Text="Search Here" VerticalAlignment="Top" Height="46" KeyDown="Search_KeyDown" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" FontSize="25" Grid.ColumnSpan="2" PointerEntered="Search_PointerEntered" PointerExited="Search_PointerExited"/>
+        <TextBox x:Name="SearchBox" Margin="10,5,5,10" Grid.Row="1" TextChanged="SearchBox_TextChanged"  TextWrapping="Wrap" Text="Search Here" VerticalAlignment="Top" Height="46" KeyDown="Search_KeyDown" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" FontSize="25" Grid.ColumnSpan="2" PointerEntered="Search_PointerEntered" PointerExited="Search_PointerExited"/>
         <ScrollViewer x:Name="searchTitleScroll" Visibility="Collapsed" Grid.Column="1" Margin="5,5,5,5" Grid.Row="2">
             <TextBlock x:Name="searchResultTitle" TextWrapping="Wrap" Text="fsdsf" Height="335" Width="237"/>
         </ScrollViewer>
