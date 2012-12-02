@@ -57,9 +57,9 @@
             <Image x:Name="itemImage" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
             
             <ScrollViewer Grid.Column="1" Grid.Row="2">
-                    <TextBlock x:Name="itemInfo" HorizontalAlignment="Left" Text="No Data Found"/>
+                    <TextBlock x:Name="itemInfo" HorizontalAlignment="Left" Text=""/>
             </ScrollViewer>
-            <TextBlock x:Name="itemDescription" Text="No Data Found" Grid.Column="2" Grid.RowSpan="3" Margin="10,0" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="itemDescription" Text="" Grid.Column="2" Grid.RowSpan="3" Margin="10,0" Grid.ColumnSpan="2" FontSize="30"/>
         </Grid>
 
 

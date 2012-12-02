@@ -54,7 +54,7 @@ namespace HackFall12
             this.pageTitle.Text = pageItem.Title;
             this.itemImage.Source = pageItem.Image;
             this.itemDescription.Text = pageItem.Description;
-            Notifier.GenerateToast("Detail Viewed");
+            //Notifier.GenerateToast("Detail Viewed");
             if (pageItem.OnNetflix)
             {
                 this.watchOnNetflixButton.Visibility = Windows.UI.Xaml.Visibility.Visible;

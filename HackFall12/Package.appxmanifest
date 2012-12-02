@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HackFall12.App">
-      <VisualElements DisplayName="Netflix Watcher" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Watch Netflix for movies you'd like to see." ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
+      <VisualElements DisplayName="Netflix Watcher" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Watch Netflix for movies you'd like to see." ForegroundText="light" BackgroundColor="#008D94" ToastCapable="true">
         <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="Assets\SplashScreen.png" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#008D94" />
       </VisualElements>
     </Application>
   </Applications>
