@@ -111,20 +111,14 @@ namespace HackFall12
         {
             if (e.Key == VirtualKey.Enter && !searching)
             {
-                if (foundItem == null)
+                searching = true;
+                string text = SearchBox.Text;
+                if (text != "")
                 {
-                    searching = true;
-                    string text = SearchBox.Text;
-                    if (text != "")
-                    {
-                        string s = new string(text.ToCharArray().Where(char.IsLetterOrDigit).ToArray());
-                        webRequester.GetMovieByName(s);
-                    }
+                    string s = new string(text.ToCharArray().Where(char.IsLetterOrDigit).ToArray());
+                    webRequester.GetMovieByName(s);
                 }
-                else
-                {
-                    Add_Movie();
-                }
+
             }
         }
 

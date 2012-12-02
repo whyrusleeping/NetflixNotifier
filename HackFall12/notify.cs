@@ -45,13 +45,21 @@ namespace HackFall12
         }
         public static void GenerateToast(string update)
         {
-            IToastNotificationContent toastContent = null;
-            IToastText01 templateContent = ToastContentFactory.CreateToastText01();
-            templateContent.TextBodyWrap.Text = update;
-            toastContent = templateContent;
+
+            string toastXmlString = "<toast>"
+                               + "<visual version='1'>"
+                               + "<binding template='ToastText01'>"
+                               + "<text id='1'>" + update + "</text>"
+                               + "</binding>"
+                               + "</visual>"
+                               + "</toast>";
+
+            Windows.Data.Xml.Dom.XmlDocument toastDOM = new Windows.Data.Xml.Dom.XmlDocument();
+            toastDOM.LoadXml(toastXmlString);
+
             // Create a toast, then create a ToastNotifier object to show
             // the toast
-            ToastNotification toast = toastContent.CreateNotification();
+            ToastNotification toast = new ToastNotification(toastDOM);
 
             // If you have other applications in your package, you can specify the AppId of
             // the app to create a ToastNotifier for that application
