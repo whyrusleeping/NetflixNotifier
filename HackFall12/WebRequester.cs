@@ -15,7 +15,8 @@ namespace HackFall12
         private HttpClient client;
         private MovieDataItem _movie;
         private string server = "http://125.125.125.125";
-        private const string query = "/avaliable/";
+        private const string query = "/available/";
+        public Action RequestFinishedCallback;
 
         //One time only getter for the retreived movie
         public MovieDataItem Movie
@@ -63,10 +64,10 @@ namespace HackFall12
                 string Title = jsonObject["title"].GetObject()["regular"].GetString();
                 string ID = jsonObject["id"].Stringify();
                 string link = jsonObject["link"].GetArray()[0].GetObject()["href"].GetString();
-                string rating = jsonObject["average_rating"].GetString();
+                string rating = jsonObject["average_rating"].GetNumber().ToString();
                 string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
                 string synopsis = "";
-                bool avaliable = jsonObject["avaliable"].GetBoolean();
+                bool avaliable = jsonObject["available"].GetBoolean();
 
                 var actors = new List<string>();
                 foreach (var actorPair in jsonObject["cast"].GetArray())
@@ -102,12 +103,17 @@ namespace HackFall12
                 responseBody = responseBody.Replace("<br>", Environment.NewLine);
                 _movie = parseMovieFromJSON(responseBody);
                 updateStatus("Finished");
+                if (RequestFinishedCallback != null)
+                {
+                    RequestFinishedCallback();
+                }
             }
             catch (Exception)
             {
                 updateStatus("Movie Request Failed");
-                //throw;
+                throw;
             }
+
         }
 
 

@@ -30,6 +30,7 @@ namespace HackFall12
         private MovieDataItem foundItem;
         private MovieDataSourceTest mainSource;
         private bool controlDown;
+        private bool searching;
         public ItemsPage()
         {
             controlDown = false;
@@ -37,6 +38,7 @@ namespace HackFall12
             mainSource = new MovieDataSourceTest();
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
+            webRequester.RequestFinishedCallback += ReqComplete;
             this.KeyUp +=ItemsPage_KeyUp;
             this.KeyDown +=ItemsPage_KeyDown;
             this.InitializeComponent();
@@ -103,16 +105,16 @@ namespace HackFall12
 
         private void Search_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter)
+            if (e.Key == VirtualKey.Enter && !searching)
             {
                 if (foundItem == null)
                 {
+                    searching = true;
                     string text = SearchBox.Text;
                     if (text != "")
                     {
                         string s = new string(text.ToCharArray().Where(char.IsLetterOrDigit).ToArray());
                         webRequester.GetMovieByName(s);
-                        Search_Done(webRequester.Movie);
                     }
                 }
                 else
@@ -121,6 +123,13 @@ namespace HackFall12
                 }
             }
         }
+
+        public void ReqComplete()
+        {
+            Search_Done(webRequester.Movie);
+            searching = false;
+        }
+
         private void Search_Done(MovieDataItem newItem)
         {
             if (newItem != null)
@@ -171,6 +180,7 @@ namespace HackFall12
                 MovieDataSourceTest.AddItem(foundItem);
             }
             foundItem = null;
+            searching = false;
         }
         public void UpdateStatus(String update)
         {
