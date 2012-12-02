@@ -66,6 +66,7 @@ namespace HackFall12
                 string rating = jsonObject["average_rating"].GetString();
                 string imageURL = jsonObject["box_art"].GetObject()["large"].GetString();
                 string synopsis = "";
+                bool avaliable = jsonObject["avaliable"].GetBoolean();
 
                 var actors = new List<string>();
                 foreach (var actorPair in jsonObject["cast"].GetArray())
@@ -74,7 +75,7 @@ namespace HackFall12
                 }
 
 
-                return new MovieDataItem(ID, link, Title,rating, imageURL, synopsis, actors,false);
+                return new MovieDataItem(ID, link, Title,rating, imageURL, synopsis, actors,avaliable);
             }
             catch (Exception) 
             {
