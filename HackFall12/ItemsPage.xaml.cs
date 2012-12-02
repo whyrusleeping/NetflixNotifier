@@ -35,6 +35,7 @@ namespace HackFall12
             mainSource = new MovieDataSourceTest();
             foundItem = null;
             webRequester.UpdateStatusAction += UpdateStatus;
+            webRequester.RequestFinishedCallback += ReqComplete;
             this.InitializeComponent();
         }
 
@@ -82,7 +83,6 @@ namespace HackFall12
                     {
                         string s = new string(text.ToCharArray().Where(char.IsLetterOrDigit).ToArray());
                         webRequester.GetMovieByName(s);
-                        Search_Done(webRequester.Movie);
                     }
                 }
                 else
@@ -91,6 +91,12 @@ namespace HackFall12
                 }
             }
         }
+
+        public void ReqComplete()
+        {
+            Search_Done(webRequester.Movie);
+        }
+
         private void Search_Done(MovieDataItem newItem)
         {
             if (newItem != null)

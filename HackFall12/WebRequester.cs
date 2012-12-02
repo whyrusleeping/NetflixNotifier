@@ -16,6 +16,7 @@ namespace HackFall12
         private MovieDataItem _movie;
         private string server = "http://125.125.125.125";
         private const string query = "/avaliable/";
+        public Action RequestFinishedCallback;
 
         //One time only getter for the retreived movie
         public MovieDataItem Movie
@@ -102,12 +103,17 @@ namespace HackFall12
                 responseBody = responseBody.Replace("<br>", Environment.NewLine);
                 _movie = parseMovieFromJSON(responseBody);
                 updateStatus("Finished");
+                if (RequestFinishedCallback != null)
+                {
+                    RequestFinishedCallback();
+                }
             }
             catch (Exception)
             {
                 updateStatus("Movie Request Failed");
                 //throw;
             }
+
         }
 
 
